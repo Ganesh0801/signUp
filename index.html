@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up Form</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: Roboto, sans-serif;
+      }
+
+      .error-msg {
+        color: rgb(255, 99, 71);
+        font-style: italic;
+        display: block;
+        margin-top: 4px;
+      }
+
+      input.invalid {
+        border-color: rgb(255, 99, 71);
+        color: rgb(255, 99, 71);
+        background-color: rgba(255, 99, 71, 0.6);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="sign-up-form">
+        <picture>
+          <source
+            media="(max-width: 600px)"
+            srcset="assests/images/illustration-sign-up-mobile.svg"
+          />
+          <img
+            src="./assests/images/illustration-sign-up-desktop.svg"
+            alt="Main visual"
+          />
+        </picture>
+
+        <h2>Stay updated!</h2>
+        <p>Join our newsletter to get:</p>
+        <ul>
+          <li>Product updates</li>
+          <li>Exclusive content</li>
+          <li>Early access to new features</li>
+        </ul>
+
+        <form id="subscribeForm">
+          <label for="email">Email address</label>
+          <input type="text" id="email" placeholder="email@company.com" />
+          <em id="error" class="error-msg" aria-live="polite"></em>
+          <button type="submit" class="sub-btn">Subscribe</button>
+        </form>
+      </div>
+
+      <div class="footer">
+        <p>Attribution: <a href="https://crio.do" target="_blank">Crio</a></p>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("subscribeForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const emailInput = document.getElementById("email");
+          const errorMsg = document.getElementById("error");
+          const email = emailInput.value.trim();
+          const emailPattern =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+          if (!emailPattern.test(email)) {
+            errorMsg.textContent = "Valid email required.";
+            emailInput.classList.add("invalid");
+          } else {
+            errorMsg.textContent = "";
+            emailInput.classList.remove("invalid");
+            localStorage.setItem("userEmail", email);
+            window.location.href = "success.html";
+          }
+        });
+    </script>
+  </body>
+</html>
